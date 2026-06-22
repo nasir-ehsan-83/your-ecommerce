@@ -1,66 +1,214 @@
-# Your E-Commerce Application
+# 🛒 Your Ecommerce
 
-A full-stack e-commerce web application featuring a modern React frontend and a robust Node.js/Express backend API.
-
-## 📁 Project Structure
-
-This repository is split into two main sections:
-*   **`app/`**: The frontend application built with React, Vite, and Tailwind CSS.
-*   **`server/`**: The backend REST API built with Node.js, Express, and MongoDB.
+A modern full-stack e-commerce platform built with **React**, **Express.js**, and **MongoDB**. The project follows a scalable architecture with secure authentication, clean code practices, and a modern user experience.
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Tech Stack
 
-Follow these steps to set up and run the project locally on your machine.
+### Backend
 
-### Prerequisites
-Make sure you have **Node.js** (v18 or higher recommended) and **npm** installed.
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* JWT Authentication
+* Bcrypt.js
+* Zod Validation
 
-### 1. Backend Setup (`server`)
-1. Navigate to the server folder:
-   ```bash
-   cd server
-   ```
-2. Install the backend dependencies:
-   ```bash
-   npm install
-   ```
-3. Create a `.env` file in the `server/` directory and define your environment variables:
-   ```env
-   PORT=4500
-   MONGO_URI=your_mongodb_connection_string
-   ```
-4. Start the development server:
-   ```bash
-   npm run dev
-   ```
-   The backend API will run on `http://localhost:4500`.
+### Frontend
 
-### 2. Frontend Setup (`app`)
-1. Open a new terminal window and navigate to the app folder:
-   ```bash
-   cd app
-   ```
-2. Install the frontend dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the Vite development server:
-   ```bash
-   npm run dev
-   ```
-   The frontend application will open on `http://localhost:5173` (or the port specified by Vite).
+* React.js
+* Vite
+* Tailwind CSS
 
 ---
 
-## 🛠️ Tech Stack
+## 📂 Project Structure
 
-*   **Frontend**: React, Vite, Tailwind CSS, ESLint
-*   **Backend**: Node.js, Express, CORS, Dotenv
-*   **Database**: MongoDB (configured via `server/src/config/db.js`)
+```text
+your-ecommerce/
+│
+├── server/
+│   ├── config/
+│   ├── controllers/
+│   ├── middlewares/
+│   ├── models/
+│   ├── routes/
+│   ├── utils/
+│   ├── validators/
+│   └── index.js
+│
+├── app/
+│   ├── public/
+│   ├── src/
+│   ├── assets/
+│   └── vite.config.js
+│
+└── README.md
+```
+
+---
+
+## ✨ Features
+
+### Authentication
+
+* User Registration
+* User Login
+* JWT Authentication
+* Refresh Token Rotation
+* Secure Logout
+* Password Hashing with Bcrypt
+* Request Validation using Zod
+
+### Products
+
+* Product CRUD Operations
+* Product Categories
+* Search & Filtering
+* Pagination
+
+### Orders
+
+* Shopping Cart
+* Checkout System
+* Order History
+
+### Planned Features
+
+* Payment Gateway Integration
+* Wishlist
+* Product Reviews & Ratings
+* Admin Dashboard
+* Email Verification
+* Password Reset
+
+---
+
+## 🔒 Security
+
+* Password Hashing with Bcrypt
+* JWT Access & Refresh Tokens
+* Protected Routes
+* Input Validation with Zod
+* Secure Cookie Handling
+* Centralized Error Handling
+
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env` file inside the `server` directory:
+
+```env
+PORT=5000
+
+MONGO_URL=your_mongodb_connection
+
+ACCESS_TOKEN_SECRET=your_access_secret
+REFRESH_TOKEN_SECRET=your_refresh_secret
+
+ACCESS_TOKEN_EXPIRES_IN=15m
+REFRESH_TOKEN_EXPIRES_IN=7d
+```
+
+---
+
+## 🛠️ Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/your-username/your-ecommerce.git
+cd your-ecommerce
+```
+
+### Backend Setup
+
+```bash
+cd server
+
+npm install
+
+npm run dev
+```
+
+### Frontend Setup
+
+```bash
+cd ../app
+
+npm install
+
+npm run dev
+```
+
+---
+
+## 📡 API Endpoints
+
+### Authentication
+
+```http
+POST /api/auth/register
+POST /api/auth/login
+POST /api/auth/refresh-token
+POST /api/auth/logout
+```
+
+### Products
+
+```http
+GET    /api/products
+GET    /api/products/:id
+POST   /api/products
+PATCH  /api/products/:id
+DELETE /api/products/:id
+```
+
+---
+
+## 📸 Screenshots
+
+Add project screenshots here:
+
+```md
+![Home Page](./screenshots/home.png)
+
+![Product Page](./screenshots/product.png)
+
+![Authentication](./screenshots/auth.png)
+```
+
+---
+
+## 🧪 Future Improvements
+
+* Redis Caching
+* Elasticsearch Integration
+* Docker Support
+* CI/CD Pipeline
+* Microservices Architecture
+* Real-Time Notifications
+
+---
+
+## 👨‍💻 Author
+
+**Nasir Ahmad Ehsan**
+
+Backend Developer | JavaScript & Node.js Enthusiast
+
+* GitHub: https://github.com/nasir-ehsan-83
+* LinkedIn: https://linkedin.com/in/nasirehsan83
 
 ---
 
 ## 📄 License
-This project is licensed under the terms specified in the [LICENSE](LICENSE) file.
+
+This project is licensed under the MIT License.
+
+```text
+Copyright (c) 2026 Nasir Ahmad Ehsan
+```
