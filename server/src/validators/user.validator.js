@@ -1,8 +1,10 @@
 import z from "zod";
 
-export const loginSchema = z.object({
+export const createUserSchema = z.object({
     body: z.strictObject({
+        name: z.string().min(3, "Name's length should not be less than 3"),
         username: z.string().min(3, "Username's length should not be less than 3"),
+        email: z.string().email("Invalid email format").min(10),
         password: z.string().min(8, "Password length should not be less than 8")
     })
 });
