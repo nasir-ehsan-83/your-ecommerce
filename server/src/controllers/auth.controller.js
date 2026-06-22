@@ -36,7 +36,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     }); 
 }); 
 
-export const loginUser = asyncHandler(async (req, res) => {
+export const handleLoginUser = asyncHandler(async (req, res) => {
     const { username, password } = req.body; 
 
     // Find user
@@ -93,4 +93,49 @@ export const loginUser = asyncHandler(async (req, res) => {
     }); 
 
     return res.json({ accessToken }); 
+});
+
+
+export const handleLogoutUser = asyncHandler(async (req, res) => {
+    const cookies = req.cookies;
+
+    // if no cookie exist, just clear the client-side cookie and return
+    if (!cookies?.jwt) {
+        res.clearCookie("jwt", { 
+            httpOnly: true, 
+            sameSite: "None", 
+            secure: true 
+        });
+        return res.sendStatus(204); 
+    }
+
+    const refreshToken = cookies.jwt;
+
+    //  find user by refresh token in DB
+    const foundUser = await UserModel.findOne({ refresh_token: refreshToken });
+
+    // if token exists in cookie but not in DB, still clear the cookie
+    if (!foundUser) {
+        res.clearCookie("jwt", { 
+            httpOnly: true, 
+            sameSite: "None", 
+            secure: true 
+        });
+        return res.sendStatus(204);
+    }
+
+    // delete refresh_token from database
+    await UserModel.updateOne(
+        { _id: foundUser._id },
+        { $set: { refresh_token: null } }
+    );
+
+    // clear jwt-token from cookies
+    res.clearCookie("jwt", { 
+        httpOnly: true, 
+        sameSite: "None", 
+        secure: true 
+    });
+    
+    return res.sendStatus(204);
 });
