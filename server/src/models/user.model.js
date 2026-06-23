@@ -32,6 +32,11 @@ const userSchema = new mongoose.Schema({
     refresh_token: {
         type: String,
         default: null 
+    },
+    role: {
+        type: String,
+        enum: ["USER", "ADMIN"] , 
+        default: "USER"
     }
 }, {
     timestamps: true // Automatically adds createdAt and updatedAt fields
