@@ -10,11 +10,10 @@ A modern full-stack e-commerce platform built with **React**, **Express.js**, an
 
 * Node.js
 * Express.js
-* MongoDB
 * Mongoose
-* JWT Authentication
+* JsonWebToken(JWT)
 * Bcrypt.js
-* Zod Validation
+* Zod
 
 ### Frontend
 
@@ -30,21 +29,47 @@ A modern full-stack e-commerce platform built with **React**, **Express.js**, an
 your-ecommerce/
 │
 ├── server/
-│   ├── config/
-│   ├── controllers/
-│   ├── middlewares/
-│   ├── models/
-│   ├── routes/
-│   ├── utils/
-│   ├── validators/
-│   └── index.js
+│   │
+│   ├── src/
+│   │   │
+│   │   ├── config/
+│   │   ├── controllers/
+│   │   ├── middlewares/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── utils/
+│   │   ├── validators/
+│   │   ├── app.js
+│   │   └── server.js
+│   │
+│   ├── .example.env
+│   ├── package-lock.json
+│   └── package.json
 │
 ├── app/
+│   │
 │   ├── public/
 │   ├── src/
-│   ├── assets/
-│   └── vite.config.js
+│   │   │
+│   │   ├── assest/
+│   │   ├── admin/
+│   │   ├── api/
+│   │   ├── component/
+│   │   ├── pages/
+│   │   ├── App.jsx
+│   │   ├── index.css
+│   │   └── main.jsx
+│   │
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package-lock.json/
+│   ├── package.json
+│   ├── postcss.config.js
+│   ├── tailwind.config.js
+│   └── vite.config.
 │
+├── .gitignore
+├── LICENSE
 └── README.md
 ```
 
@@ -54,13 +79,11 @@ your-ecommerce/
 
 ### Authentication
 
-* User Registration
-* User Login
+* Role-base Authentication
 * JWT Authentication
 * Refresh Token Rotation
-* Secure Logout
-* Password Hashing with Bcrypt
 * Request Validation using Zod
+* Response Validation using Zod
 
 ### Products
 
@@ -91,27 +114,9 @@ your-ecommerce/
 * Password Hashing with Bcrypt
 * JWT Access & Refresh Tokens
 * Protected Routes
-* Input Validation with Zod
+* Input and Output Validation with Zod
 * Secure Cookie Handling
 * Centralized Error Handling
-
----
-
-## ⚙️ Environment Variables
-
-Create a `.env` file inside the `server` directory:
-
-```env
-PORT=5000
-
-MONGO_URL=your_mongodb_connection
-
-ACCESS_TOKEN_SECRET=your_access_secret
-REFRESH_TOKEN_SECRET=your_refresh_secret
-
-ACCESS_TOKEN_EXPIRES_IN=15m
-REFRESH_TOKEN_EXPIRES_IN=7d
-```
 
 ---
 
@@ -120,7 +125,7 @@ REFRESH_TOKEN_EXPIRES_IN=7d
 ### Clone Repository
 
 ```bash
-git clone https://github.com/your-username/your-ecommerce.git
+git clone https://github.com/nasir-ehsan-83/your-ecommerce.git
 cd your-ecommerce
 ```
 
@@ -144,52 +149,12 @@ npm install
 npm run dev
 ```
 
----
-
-## 📡 API Endpoints
-
-### Authentication
-
-```http
-POST /api/auth/register
-POST /api/auth/login
-POST /api/auth/refresh-token
-POST /api/auth/logout
-```
-
-### Products
-
-```http
-GET    /api/products
-GET    /api/products/:id
-POST   /api/products
-PATCH  /api/products/:id
-DELETE /api/products/:id
-```
-
----
-
-## 📸 Screenshots
-
-Add project screenshots here:
-
-```md
-![Home Page](./screenshots/home.png)
-
-![Product Page](./screenshots/product.png)
-
-![Authentication](./screenshots/auth.png)
-```
-
----
-
 ## 🧪 Future Improvements
 
 * Redis Caching
 * Elasticsearch Integration
 * Docker Support
 * CI/CD Pipeline
-* Microservices Architecture
 * Real-Time Notifications
 
 ---
@@ -198,7 +163,7 @@ Add project screenshots here:
 
 **Nasir Ahmad Ehsan**
 
-Backend Developer | JavaScript & Node.js Enthusiast
+Backend Developer 
 
 * GitHub: https://github.com/nasir-ehsan-83
 * LinkedIn: https://linkedin.com/in/nasirehsan83
@@ -208,7 +173,3 @@ Backend Developer | JavaScript & Node.js Enthusiast
 ## 📄 License
 
 This project is licensed under the MIT License.
-
-```text
-Copyright (c) 2026 Nasir Ahmad Ehsan
-```
