@@ -11,9 +11,6 @@ A modern full-stack e-commerce platform built with **React**, **Express.js**, an
 * Node.js
 * Express.js
 * Mongoose
-* JsonWebToken(JWT)
-* Bcrypt.js
-* Zod
 
 ### Frontend
 
@@ -29,9 +26,7 @@ A modern full-stack e-commerce platform built with **React**, **Express.js**, an
 your-ecommerce/
 │
 ├── server/
-│   │
 │   ├── src/
-│   │   │
 │   │   ├── config/
 │   │   ├── controllers/
 │   │   ├── middlewares/
@@ -47,10 +42,8 @@ your-ecommerce/
 │   └── package.json
 │
 ├── app/
-│   │
 │   ├── public/
 │   ├── src/
-│   │   │
 │   │   ├── assest/
 │   │   ├── admin/
 │   │   ├── api/
