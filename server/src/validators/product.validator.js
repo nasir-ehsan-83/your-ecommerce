@@ -3,11 +3,11 @@ import z from "zod";
 export const createProductSchema = z.object({
     body: z.strictObject({
         name: z.string(),
-        description: z.string().partial(),
+        description: z.string().optional(),
         price: z.number(),
         category: z.string(),
         imageURL: z.string(),
-        stock: z.number().partial()
+        stock: z.number().optional()
     })
 });
 
@@ -36,10 +36,10 @@ export const allProductsResponseSchema = z.object({
 export const updateProductSchema = z.object({
     body: z.strictObject({
         name: z.string(),
-        description: z.string().partial(),
+        description: z.string(),
         price: z.number(),
         category: z.string(),
         imageURL: z.string(),
-        stock: z.number().partial()
+        stock: z.number()
     }).partial()
 });

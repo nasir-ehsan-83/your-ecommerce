@@ -12,6 +12,7 @@ export const validateRequest = (schema) => (req, res, next) => {
 
         return next();
     } catch (error) {
+        console.log(error);
         return res.status(400).json({
             status: "error",
             errors: error.errors.map(err => ({

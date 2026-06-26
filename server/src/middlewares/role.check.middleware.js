@@ -1,4 +1,4 @@
-import { asyncHandler } from "../utils/async.handler";
+import { asyncHandler } from "../utils/async.handler.js";
 
 export const checkRole = (allowedRoles) => {
     // function to check user.role

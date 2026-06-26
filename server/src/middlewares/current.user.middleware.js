@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
-import { asyncHandler } from "../utils/asyncHandler.js";
+import { asyncHandler } from "../utils/async.handler.js";
 
-export const verifyJWT = asyncHandler(async (req, res, next) => {
+export const getCurrentUser = asyncHandler(async (req, res, next) => {
     const authHeader = req.headers.authorization || req.headers.Authorization;
 
     // Check for Authorization header and Bearer prefix

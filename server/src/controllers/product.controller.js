@@ -1,5 +1,5 @@
 import { Model } from "mongoose";
-import ProductModel from "../models/product.model.js";
+import { ProductModel } from "../models/product.model.js";
 import { asyncHandler } from "../utils/async.handler.js";
 
 export const createProduct = asyncHandler(async (req, res) => {

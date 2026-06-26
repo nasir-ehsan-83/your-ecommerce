@@ -12,7 +12,7 @@ const app = express();
 
 // use cors to presmision differint host to connect
 app.use(cors({
-    origin : ["localhost:3500", "127.0.0.1:3500", "google.com"]
+    origin : ["http://localhost:3500", "http://127.0.0.1:3500", "https://www.google.com"]
 }));
 
 // use json () to parse json files
@@ -25,7 +25,7 @@ app.use(errorHandler);
 app.use("/api/auth", authRoutes);
 app.use("/api/refresh", refreshRoute);
 app.use("/api/users", usersRoutes);
-app.use("/api/products");
+app.use("/api/products", productRoute);
 
 // if there is not provided api
 app.use((req, res)=> {

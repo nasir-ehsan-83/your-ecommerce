@@ -1,8 +1,8 @@
 import { Router } from "express";
 
-import { validateRequest } from "../middlewares/validate.request.middleware";
-import { validateResponse } from "../middlewares/validate.response.middleware";
-import { checkRole } from "../middlewares/role.check.middleware";
+import { validateRequest } from "../middlewares/validate.request.middleware.js";
+import { validateResponse } from "../middlewares/validate.response.middleware.js";
+import { checkRole } from "../middlewares/role.check.middleware.js";
 import { getCurrentUser } from "../middlewares/current.user.middleware.js";
 import { 
     createProductSchema,
@@ -16,7 +16,7 @@ import {
     getAllProducts,
     updateProduct,
     deleteProduct
-} from "../controllers/product.controller";
+} from "../controllers/product.controller.js";
 
 const router = Router();
 

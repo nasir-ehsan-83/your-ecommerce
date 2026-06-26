@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { UserModel } from "../models/user.model.js";
-import { asyncHandler } from "../utils/asyncHandler.js";
+import { asyncHandler } from "../utils/async.handler.js";
 
 export const handleRefreshToken = asyncHandler(async (req, res) => {
     const cookies = req.cookies;
