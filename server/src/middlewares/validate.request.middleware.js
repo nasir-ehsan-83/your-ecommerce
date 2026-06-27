@@ -8,35 +8,25 @@ export const validateRequest = (schema) => (req, res, next) => {
             params: req.params
         });
 
-        // FIX: Mutate or use Object.assign instead of direct assignment (=)
+        // Mutate existing objects to avoid "read-only" errors
         req.body = validatedData.body;
-        
-        // Clear old query properties and assign new, validated ones
-        if (validatedData.query) {
-            Object.keys(req.query).forEach(key => delete req.query[key]);
-            Object.assign(req.query, validatedData.query);
-        }
-        
-        // Clear old param properties and assign new, validated ones
-        if (validatedData.params) {
-            Object.keys(req.params).forEach(key => delete req.params[key]);
-            Object.assign(req.params, validatedData.params);
-        }
+        Object.assign(req.query, validatedData.query);
+        Object.assign(req.params, validatedData.params);
 
         return next();
     } catch (error) {
-        console.error(error);
-
+        // Use error.issues instead of error.errors for Zod v4+
         if (error instanceof ZodError) {
             return res.status(400).json({
                 status: "error",
-                errors: error.errors.map(err => ({
-                    field: err.path.join('.'), 
-                    message: err.message 
+                errors: error.issues.map(issue => ({
+                    field: issue.path.join('.'), 
+                    message: issue.message 
                 }))
             });
         }
 
+        // Forward non-Zod errors to your global error handler
         return next(error);
     }
 }
