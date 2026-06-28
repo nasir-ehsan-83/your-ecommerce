@@ -31,7 +31,6 @@ export const getProduct = asyncHandler(async (req, res) => {
 
 export const getAllProducts = asyncHandler(async (req, res) => {
     const products = await ProductModel.find().sort({createdAt: -1});
-
     return res.status(200).json(products);
 });
 
