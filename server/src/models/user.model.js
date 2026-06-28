@@ -1,11 +1,9 @@
 import mongoose from "mongoose";
 
-// Define the User Schema
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, "Name is required"],
-        // Removes unnecessary whitespace
         trim: true 
     },
     username: {
@@ -13,7 +11,6 @@ const userSchema = new mongoose.Schema({
         required: [true, "Username is required"],
         unique: true,
         trim: true,
-        // Ensures  that"Admin" and "admin" are treated as the same
         lowercase: true 
     },
     email: {
@@ -37,7 +34,7 @@ const userSchema = new mongoose.Schema({
         default: "USER"
     }
 }, {
-    timestamps: true // Automatically adds createdAt and updatedAt fields
+    timestamps: true
 });
 
 
