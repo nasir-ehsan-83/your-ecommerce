@@ -3,18 +3,23 @@ import { Router } from "express";
 import { getCurrentUser } from "../middlewares/current.user.middleware.js";
 import { validateRequest } from "../middlewares/validate.request.middleware.js";
 import { validateResponse } from "../middlewares/validate.response.middleware.js";
-import { addToCartSchema } from "../validators/cart.validator.js"
+import { 
+    addToCartSchema,
+    cartResponse
+} from "../validators/cart.validator.js"
 import { 
     addToCart,
     removeItem,
-    updateQuantity
+    updateQuantity,
+    getCart
 } from "../controllers/cart.controller.js";
 
 const router = Router();
 
-router.use(getCurrentUser)
-router.post("/add", validateRequest(addToCartSchema), addToCart);
-router.delete("/item/remove", validateRequest(addToCartSchema), removeItem);
-router.patch("/item/update", validateRequest(addToCartSchema), updateQuantity);
+router.use(getCurrentUser);
 
+router.post("/add", validateRequest(addToCartSchema), validateResponse(cartResponse), addToCart);
+router.get("/", validateResponse(cartResponse), getCart);
+router.patch("/item/update", validateRequest(addToCartSchema), validateResponse(cartResponse), updateQuantity);
+router.delete("/item/remove", validateRequest(addToCartSchema), validateResponse(cartResponse), removeItem);
 export default router;

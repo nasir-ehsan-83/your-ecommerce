@@ -1,47 +1,40 @@
 import { CartModel } from "../models/cart.model.js";
+import { ProductModel } from "../models/product.model.js";
 import { asyncHandler } from "../utils/async.handler.js";
 
 export const addToCart = asyncHandler(async (req, res) => {
-    const { productId } = req.body;
+    const { productId, quantity = 1 } = req.body;
     const userId = req.user.id;
-    
-    // check that does user have a Cart
-    let cart = await CartModel.findOne({ 
-        userId 
-    });
 
-    // if user does not have any Cart
+    const product = await ProductModel.findById(productId);
+    if (!product) {
+        const error = new Error("Product not found");
+        error.statusCode = 404;
+        throw error;
+    }
+
+    if (product.stock < quantity) {
+        const error = new Error(`Only ${product.stock} units available`);
+        error.statusCode = 400;
+        throw error;
+    }
+
+    let cart = await CartModel.findOneAndUpdate(
+        { userId, "items.productId": productId },
+        { $inc: { "items.$.quantity": quantity } },
+        { new: true }
+    );
+
     if (!cart) {
-        cart = await CartModel.create({
-            userId,
-            items: [
-                {
-                    productId,
-                    quantity: 1
-                }
-            ]
-        });
+        cart = await CartModel.findOneAndUpdate(
+            { userId },
+            { $push: { items: { productId, quantity } } },
+            { upsert: true, new: true }
+        );
     }
-    
-    const item = cart.items.find((i) => i.productId.toString() === productId);
-    
-    // if there is an item in Cart
-    if (item) {
-        item.quantity += 1;
-    }
-    // otherwise add item
-    else {
-        cart.items.push({
-            productId,
-            quantity: 1
-        });
-    }
-
-    // save changes
-    await cart.save();
 
     res.status(200).json({
-        message: "Item added to Cart",
+        message: "Item added to cart",
         cart
     });
 });
@@ -49,28 +42,29 @@ export const addToCart = asyncHandler(async (req, res) => {
 export const removeItem = asyncHandler(async (req, res) => {
     const { productId } = req.body;
     const userId = req.user.id;
-    
-    // check that user has Cart or not
-    const cart = await CartModel.findOne({
-        userId
-    });
 
-    // if user does not have a Cart
+    const cart = await CartModel.findOneAndUpdate(
+        { userId },
+        { $pull: { items: { productId } } },
+        { new: true }
+    );
+
     if (!cart) {
         return res.status(404).json({
             message: "Cart not found"
         });
     }
 
-    // get item that has provided productId
-    cart.items = cart.items.filter(
-        (i) => i.productId.toString() !== productId
-    );
-
-    await cart.save();
+    if (cart.items.length === 0) {
+        await CartModel.deleteOne({ userId });
+        return res.status(200).json({
+            message: "Cart is now empty and removed",
+            cart: null
+        });
+    }
 
     return res.status(200).json({
-        message: "Item removed from Cart",
+        message: "Item removed from cart",
         cart
     });
 });
@@ -79,42 +73,51 @@ export const updateQuantity = asyncHandler(async (req, res) => {
     const { productId, quantity } = req.body;
     const userId = req.user.id;
 
-    // check that user has Cart or not
-    const cart = await CartModel.findOne({
-        userId
-    });
+    if (quantity <= 0) {
+        const error = new Error("Quantity must be a positive number");
+        error.statusCode = 400;
+        throw error;
+    }
 
-    // if user does not have any cart
+    const product = await ProductModel.findById(productId);
+    if (product && product.stock < quantity) {
+        const error = new Error(`Insufficient stock. Only ${product.stock} available`);
+        error.statusCode = 400;
+        throw error;
+    }
+
+    const cart = await CartModel.findOneAndUpdate(
+        { userId, "items.productId": productId },
+        { $set: { "items.$.quantity": quantity } },
+        { new: true }
+    );
+
     if (!cart) {
         return res.status(404).json({
-            message: "Cart does not exist"
+            message: "Cart or Item not found"
         });
     }
-
-    // if quantity has not been provided
-    if (!quantity) {
-        return res.status(400).json({
-            message: "Quantity is required"
-        });
-    }
-
-    // get item from cart
-    const item = cart.items.find((i) => i.productId.toString() === productId);
-
-    // if there is not any item by specific productId
-    if (!item) {
-        return res.status(404).json({
-            message: "Item not found"
-        });
-    }
-
-    // update specific item's quantity
-    item.quantity = quantity;
-
-    await cart.save();
 
     return res.status(200).json({
-        message: "Item Quantity updated",
+        message: "Quantity updated",
+        cart
+    });
+});
+
+export const getCart = asyncHandler(async (req, res) => {
+    const userId = req.user.id;
+
+    const cart = await CartModel.findOne({ userId })
+        .populate("items.productId", "name price imageURL category");
+
+    if (!cart) {
+        return res.status(404).json({
+            message: "Cart is empty"
+        });
+    }
+
+    return res.status(200).json({
+        message: "Cart retrieved successfully",
         cart
     });
 });
