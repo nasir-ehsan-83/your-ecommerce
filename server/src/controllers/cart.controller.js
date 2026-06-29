@@ -2,8 +2,9 @@ import { CartModel } from "../models/cart.model.js";
 import { asyncHandler } from "../utils/async.handler.js";
 
 export const addToCart = asyncHandler(async (req, res) => {
-    const { userId, productId } = req.body;
-
+    const { productId } = req.body;
+    const userId = req.user.id;
+    
     // check that does user have a Cart
     let cart = await CartModel.findOne({ 
         userId 
@@ -13,7 +14,7 @@ export const addToCart = asyncHandler(async (req, res) => {
     if (!cart) {
         cart = await CartModel.create({
             userId,
-            item: [
+            items: [
                 {
                     productId,
                     quantity: 1
@@ -21,20 +22,16 @@ export const addToCart = asyncHandler(async (req, res) => {
             ]
         });
     }
-    // if user has a Cart 
-    else {
-        const item = cart.item.find(
-            (i) => i.productId.toString() === productId
-        );
-    }
-
+    
+    const item = cart.items.find((i) => i.productId.toString() === productId);
+    
     // if there is an item in Cart
     if (item) {
         item.quantity += 1;
     }
     // otherwise add item
     else {
-        cart.item.push({
+        cart.items.push({
             productId,
             quantity: 1
         });
@@ -48,3 +45,30 @@ export const addToCart = asyncHandler(async (req, res) => {
         cart
     });
 });
+
+export const removeItem = asyncHandler(async (req, res) => {
+    const { productId } = req.body;
+    const userId = req.user.id;
+
+    const cart = await CartModel.findOne({
+        userId
+    });
+
+    if (!cart) {
+        return res.status(404).json({
+            message: "Cart not found"
+        });
+    }
+
+    cart.items = cart.items.filter(
+        (i) => i.productId.toString() !== productId
+    );
+
+    await cart.save();
+
+    return res.status(200).json({
+        message: "Item removed from Cart",
+        cart
+    });
+});
+

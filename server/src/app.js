@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth.routes.js";
 import refreshRoute from "./routes/refresh.route.js";
 import usersRoutes from "./routes/user.routes.js";
 import productRoute from "./routes/product.routes.js";
+import cartRoute from "./routes/cart.routes.js";
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/refresh", refreshRoute);
 app.use("/api/users", usersRoutes);
 app.use("/api/products", productRoute);
+app.use("/api/carts", cartRoute)
 
 app.use((req, res)=> {
     return res.status(404).json({
