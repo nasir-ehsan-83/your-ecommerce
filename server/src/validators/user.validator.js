@@ -1,5 +1,11 @@
-import { z } from 'zod';
-import mongoose from 'mongoose';
+import { object, z } from 'zod';
+
+export const ObjectIdSchema = z.string().regex(
+    /^[0-9a-fA-F]{24}$/,
+    {
+        message: "Invalid"
+    }
+);
 
 export const createUserSchema = z.object({
     body: z.strictObject({
@@ -16,11 +22,13 @@ export const createUserSchema = z.object({
 });
 
 export const userResponseSchema = z.object({
-    _id: z.any(),
+    _id: ObjectIdSchema,
     username: z.string(),
     email: z.string().email(),
     role: z.string()
-}).transform((data) => ({
+})
+.strict()
+.transform((data) => ({
     id: data._id.toString(),
     name: data.name,
     username: data.username,
@@ -43,11 +51,6 @@ export const updateUserSchema = z.object({
 
 export const getUserParamsSchema = z.object({
     params: z.object({
-        id: z.string().refine(
-            (val) => mongoose.Types.ObjectId.isValid(val), 
-            {
-                message: "Invalid User ID format",
-            }
-        ),
+        id: ObjectIdSchema,
     }),
 });
