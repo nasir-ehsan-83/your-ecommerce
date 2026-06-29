@@ -6,7 +6,8 @@ import { validateResponse } from "../middlewares/validate.response.middleware.js
 import { addToCartSchema } from "../validators/cart.validator.js"
 import { 
     addToCart,
-    removeItem
+    removeItem,
+    updateQuantity
 } from "../controllers/cart.controller.js";
 
 const router = Router();
@@ -14,5 +15,6 @@ const router = Router();
 router.use(getCurrentUser)
 router.post("/add", validateRequest(addToCartSchema), addToCart);
 router.delete("/item/remove", validateRequest(addToCartSchema), removeItem);
+router.patch("/item/update", validateRequest(addToCartSchema), updateQuantity);
 
 export default router;
