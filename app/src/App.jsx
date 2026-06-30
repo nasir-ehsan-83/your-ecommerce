@@ -14,7 +14,7 @@ import ProductList from "./admin/ProductList.jsx";
 const router = createBrowserRouter([
   {path: "/", element: <Home/>},
   {path: "/login", element: <Login/>},
-  {path: "/product/:id", element: <ProductDetails/>},
+  {path: "/products/:id", element: <ProductDetails/>},
   {path: "/signup", element: <Signup/>},
 
   {path: "/admin/products", element: <ProductList/>},
