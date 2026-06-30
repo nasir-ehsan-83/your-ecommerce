@@ -1,5 +1,5 @@
 import z from "zod";
-import { ObjectIdSchema } from "./user.validator";
+import { objectIdSchema } from "./user.validator.js";
 
 export const createProductSchema = z.object({
     body: z.strictObject({
@@ -13,7 +13,7 @@ export const createProductSchema = z.object({
 });
 
 export const productResponseSchema = z.object({
-    _id: ObjectIdSchema,
+    _id: objectIdSchema,
     name: z.string(),
     description: z.string().nullable().optional(),
     price: z.number(),

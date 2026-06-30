@@ -1,10 +1,10 @@
 import { object, z } from 'zod';
 
-export const ObjectIdSchema = z.string().regex(
-    /^[0-9a-fA-F]{24}$/,
-    {
-        message: "Invalid"
-    }
+export const objectIdSchema = z.preprocess(
+    (val) => val?.toString(), 
+    z.string().regex(/^[0-9a-fA-F]{24}$/, {
+        message: "Invalid MongoDB ObjectId"
+    })
 );
 
 export const createUserSchema = z.object({
@@ -22,7 +22,7 @@ export const createUserSchema = z.object({
 });
 
 export const userResponseSchema = z.object({
-    _id: ObjectIdSchema,
+    _id: objectIdSchema,
     username: z.string(),
     email: z.string().email(),
     role: z.string()
@@ -51,6 +51,6 @@ export const updateUserSchema = z.object({
 
 export const getUserParamsSchema = z.object({
     params: z.object({
-        id: ObjectIdSchema,
+        id: objectIdSchema,
     }),
 });
