@@ -7,13 +7,11 @@ A modern full-stack e-commerce platform built with **React**, **Express.js**, an
 ## 🚀 Tech Stack
 
 ### Backend
-
 * Node.js
 * Express.js
 * Mongoose
 
 ### Frontend
-
 * React.js
 * Vite
 * Tailwind CSS
@@ -44,10 +42,10 @@ your-ecommerce/
 ├── app/
 │   ├── public/
 │   ├── src/
-│   │   ├── assest/
+│   │   ├── assets/
 │   │   ├── admin/
 │   │   ├── api/
-│   │   ├── component/
+│   │   ├── components/
 │   │   ├── pages/
 │   │   ├── App.jsx
 │   │   ├── index.css
@@ -55,11 +53,11 @@ your-ecommerce/
 │   │
 │   ├── eslint.config.js
 │   ├── index.html
-│   ├── package-lock.json/
+│   ├── package-lock.json
 │   ├── package.json
 │   ├── postcss.config.js
 │   ├── tailwind.config.js
-│   └── vite.config.
+│   └── vite.config.js
 │
 ├── .gitignore
 ├── LICENSE
@@ -70,96 +68,85 @@ your-ecommerce/
 
 ## ✨ Features
 
-### Authentication
-
-* Role-base Authentication
+### Authentication & Authorization
+* Role-Based Access Control (RBAC)
 * JWT Authentication
 * Refresh Token Rotation
 * Request Validation using Zod
 * Response Validation using Zod
 
 ### Products
-
 * Product CRUD Operations
 * Product Categories
-* Search & Filtering
+* Advanced Search & Filtering
 * Pagination
 
-### Orders
-
-* Shopping Cart
+### Orders & Shopping Cart
+* Dynamic Shopping Cart
 * Checkout System
-* Order History
+* Order History Tracking
 
 ### Planned Features
-
 * Payment Gateway Integration
-* Wishlist
+* User Wishlist
 * Product Reviews & Ratings
-* Admin Dashboard
-* Email Verification
-* Password Reset
+* Comprehensive Admin Dashboard
+* Email Verification System
+* Password Reset Flow
 
 ---
 
 ## 🔒 Security
 
-* Password Hashing with Bcrypt
-* JWT Access & Refresh Tokens
-* Protected Routes
-* Input and Output Validation with Zod
-* Secure Cookie Handling
-* Centralized Error Handling
+* Secure Password Hashing with Bcrypt
+* Robust JWT Access & Refresh Token Management
+* Protected & Private Routes
+* Strict Input and Output Data Validation via Zod
+* Secure, HttpOnly Cookie Handling
+* Centralized Asynchronous Error Handling
 
 ---
 
-## 🛠️ Installation
+## 🛠️ Installation & Setup
 
-### Clone Repository
-
+### Clone the Repository
 ```bash
-git clone https://github.com/nasir-ehsan-83/your-ecommerce.git
+git clone https://github.com
 cd your-ecommerce
 ```
 
 ### Backend Setup
-
 ```bash
 cd server
-
 npm install
-
 npm run dev
 ```
 
 ### Frontend Setup
-
 ```bash
 cd ../app
-
 npm install
-
 npm run dev
 ```
 
+---
+
 ## 🧪 Future Improvements
 
-* Redis Caching
-* Elasticsearch Integration
-* Docker Support
-* CI/CD Pipeline
-* Real-Time Notifications
+* Redis Caching for High-Performance Data Retrieval
+* Elasticsearch Integration for Complex Queries
+* Docker Containerization Support
+* Real-Time User Notifications
 
 ---
 
 ## 👨‍💻 Author
 
-**Nasir Ahmad Ehsan**
-
+**Nasir Ahmad Ehsan**  
 Backend Developer 
 
-* GitHub: https://github.com/nasir-ehsan-83
-* LinkedIn: https://linkedin.com/in/nasirehsan83
+* GitHub: [://github.com](https://://github.com)
+* LinkedIn: [://linkedin.com](https://://linkedin.com)
 
 ---
 
