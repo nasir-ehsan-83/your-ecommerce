@@ -3,6 +3,7 @@ import { objectIdSchema } from "./user.validator.js";
 
 export const addToCartSchema = z.object({
     body: z.strictObject({
+        userId: objectIdSchema,
         productId: objectIdSchema,
         quantity: z.number().optional()
     })

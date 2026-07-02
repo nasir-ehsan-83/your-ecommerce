@@ -3,8 +3,7 @@ import { ProductModel } from "../models/product.model.js";
 import { asyncHandler } from "../utils/async.handler.js";
 
 export const addToCart = asyncHandler(async (req, res) => {
-    const { productId, quantity = 1 } = req.body;
-    const userId = req.user.id;
+    const { userId, productId, quantity = 1 } = req.body;
 
     const product = await ProductModel.findById(productId);
     if (!product) {
@@ -40,8 +39,7 @@ export const addToCart = asyncHandler(async (req, res) => {
 });
 
 export const removeItem = asyncHandler(async (req, res) => {
-    const { productId } = req.body;
-    const userId = req.user.id;
+    const { userId, productId } = req.body;
 
     const cart = await CartModel.findOneAndUpdate(
         { userId },
@@ -70,8 +68,7 @@ export const removeItem = asyncHandler(async (req, res) => {
 });
 
 export const updateQuantity = asyncHandler(async (req, res) => {
-    const { productId, quantity } = req.body;
-    const userId = req.user.id;
+    const { userId, productId, quantity } = req.body;
 
     if (quantity <= 0) {
         const error = new Error("Quantity must be a positive number");
@@ -105,7 +102,7 @@ export const updateQuantity = asyncHandler(async (req, res) => {
 });
 
 export const getCart = asyncHandler(async (req, res) => {
-    const userId = req.user.id;
+    const { userId } = req.body;
 
     const cart = await CartModel.findOne({ userId })
         .populate("items.productId", "name price imageURL category");
