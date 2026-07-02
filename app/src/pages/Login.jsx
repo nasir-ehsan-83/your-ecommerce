@@ -30,9 +30,9 @@ const Login = () => {
     try {
       const response = await api.post("/auth/login", form);
       
-      // ذخیره توکن دریافتی از سرور برای احراز هویت در روت‌های بعدی
       if (response.data?.accessToken) {
         localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("userId", response.data.user.id);
       }
 
       setIsError(false);
@@ -43,7 +43,7 @@ const Login = () => {
       }, 1000);
     } catch (err) {
       setIsError(true);
-      // نمایش دقیق پیام خطای صادر شده از سمت بک‌اَند
+      
       setMsg(err.response?.data?.message || "An error occurred");
     }
   };

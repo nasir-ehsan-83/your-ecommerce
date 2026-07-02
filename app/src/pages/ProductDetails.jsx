@@ -95,10 +95,24 @@ const ProductDetails = () => {
     }
   };
 
-  const handleAddToCart = () => {
-    setAddedToCart(true);
-    setTimeout(() => setAddedToCart(false), 3000);
-    console.log(`Added ${quantity} of ${product?.name} to cart`);
+  const handleAddToCart = async () => {
+    const userId = localStorage.getItem("userId");
+
+    if (!userId) {
+      alert("Please log in to add items to your cart.");
+      return;
+    }
+
+    const res = await api.post("/cart/add", {userId, productId});
+
+    const total = res.data.items.reduce(
+      (sum, item) =>  sum + item.productId.price * item.quantity, 0
+    );
+
+    localStorage.setItem("CartCount", total);
+
+    window.dispatchEvent(new Event("cartUpdated"));
+
   };
 
   const openImageModal = (imageUrl) => {
@@ -374,9 +388,9 @@ const ProductDetails = () => {
                 {/* Add to Cart Button */}
                 <div className="flex flex-col sm:flex-row gap-3 mt-auto pt-4 border-t border-slate-100">
                   <button
-                    onClick={handleAddToCart}
-                    disabled={product.stock === 0}
-                    className={`flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-semibold transition-all duration-200 active:scale-[0.98] ${
+                    onClick = {() => handleAddToCart(product._id)}
+                    disabled = {product.stock === 0}
+                    className = {`flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-semibold transition-all duration-200 active:scale-[0.98] ${
                       product.stock === 0
                         ? "bg-slate-200 text-slate-400 cursor-not-allowed"
                         : "bg-blue-600 text-white shadow-lg shadow-blue-100 hover:bg-blue-700 hover:shadow-blue-200"
